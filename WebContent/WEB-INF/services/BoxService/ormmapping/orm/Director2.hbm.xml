@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Universidad de La Frontera
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="orm.Director2" table="Director" lazy="false">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<many-to-one name="persona" column="Personaid" class="orm.Persona2" cascade="save-update,lock" unique="true" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+		<one-to-one name="reporte2" class="orm.Reporte2" cascade="save-update,lock" property-ref="director" lazy="proxy" access="field"/>
+	</class>
+</hibernate-mapping>

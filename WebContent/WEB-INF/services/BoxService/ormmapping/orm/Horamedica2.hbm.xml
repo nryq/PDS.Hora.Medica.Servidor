@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Universidad de La Frontera
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="orm.Horamedica2" table="horamedica" lazy="false">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="esAPS" column="esAPS" type="integer" length="10" not-null="false" lazy="false"/>
+		<property name="fecha" column="fecha" type="date" not-null="false" lazy="false"/>
+		<many-to-one name="medico" column="medicoid" class="orm.Medico2" cascade="save-update,lock" unique="true" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+		<many-to-one name="box" column="Boxid" class="orm.Box2" cascade="save-update,lock" unique="true" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+		<set name="ORM_Paciente_hora" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="horamedicaid" not-null="true"/>
+			<one-to-many class="orm.Paciente_hora"/>
+		</set>
+		<one-to-one name="reserva2" class="orm.Reserva2" cascade="save-update,lock" property-ref="horamedica" lazy="proxy" access="field"/>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Universidad de La Frontera
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="orm.Persona2" table="persona" lazy="false">
+		<id name="id" column="id" type="integer" unsaved-value="0">
+			<generator class="increment">
+			</generator>
+		</id>
+		<property name="rut" column="rut" unique="true" type="string" length="12" not-null="true" lazy="false"/>
+		<property name="nombre" column="nombre" type="string" length="255" not-null="true" lazy="false"/>
+		<property name="apellido" column="apellido" type="string" length="255" not-null="true" lazy="false"/>
+		<property name="edad" column="edad" type="integer" length="10" not-null="false" lazy="false"/>
+		<property name="fono" column="fono" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="direccion" column="direccion" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="ciudad" column="ciudad" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="comuna" column="comuna" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="login" column="login" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="pass" column="pass" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="email" column="email" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="status" column="status" type="string" length="255" not-null="false" lazy="false"/>
+		<one-to-one name="paciente2" class="orm.Paciente2" cascade="save-update,lock" property-ref="persona" lazy="proxy" access="field"/>
+		<one-to-one name="director2" class="orm.Director2" cascade="save-update,lock" property-ref="persona" lazy="proxy" access="field"/>
+		<one-to-one name="medico2" class="orm.Medico2" cascade="save-update,lock" property-ref="persona" lazy="proxy" access="field"/>
+		<set name="ORM_Reserva2" lazy="true" cascade="save-update,lock" inverse="true">
+			<key column="Personaid" not-null="true"/>
+			<one-to-many class="orm.Reserva2"/>
+		</set>
+	</class>
+</hibernate-mapping>
