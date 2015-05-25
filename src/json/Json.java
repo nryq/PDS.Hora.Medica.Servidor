@@ -3,7 +3,7 @@ package json;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import orm.Persona2;
+import model.Persona2;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -7,13 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import json.Json;
+import model.Horamedica2;
+import model.Medico2;
+import model.Reserva2;
 
 import org.orm.PersistentException;
 import org.orm.PersistentTransaction;
-
-import orm.Horamedica2;
-import orm.Medico2;
-import orm.Reserva2;
 
 /**
  * @author Enrique
@@ -28,7 +27,7 @@ public class MedicoService {
 	public String getMedicos() throws PersistentException{
 		String out = "";
 		System.out.println("Listing Medico2...");
-		orm.Medico2[] ormMedico2s = orm.Medico2DAO.listMedico2ByQuery(null, null);
+		model.Medico2[] ormMedico2s = model.Medico2DAO.listMedico2ByQuery(null, null);
 		
 		String[] label = {"idMedico", "idPersona", "RUT", "Nombre", 
 				"Apellido", "Edad", "Fono", "Direccion", "Ciudad", "Comuna",
@@ -67,7 +66,7 @@ public class MedicoService {
 		System.out.println("Listing Medico2...");
 		String condicion = "id = "+id;
 		
-		orm.Medico2[] ormMedico2s = orm.Medico2DAO.listMedico2ByQuery(condicion, null);
+		model.Medico2[] ormMedico2s = model.Medico2DAO.listMedico2ByQuery(condicion, null);
 		
 		String[] label = {"idMedico", "idPersona", "RUT", "Nombre", 
 				"Apellido", "Edad", "Fono", "Direccion", "Ciudad", "Comuna",
@@ -106,9 +105,9 @@ public class MedicoService {
 		System.out.println("Listing Medico2...");
 		String condicion = "nombre = '"+name+"'";
 		
-		orm.Persona2[] per = orm.Persona2DAO.listPersona2ByQuery(condicion, null);
+		model.Persona2[] per = model.Persona2DAO.listPersona2ByQuery(condicion, null);
 		condicion = "id = "+per[0].getId();
-		orm.Medico2[] ormMedico2s = orm.Medico2DAO.listMedico2ByQuery(condicion, null);
+		model.Medico2[] ormMedico2s = model.Medico2DAO.listMedico2ByQuery(condicion, null);
 		
 		String[] label = {"idMedico", "idPersona", "RUT", "Nombre", 
 				"Apellido", "Edad", "Fono", "Direccion", "Ciudad", "Comuna",
@@ -144,7 +143,7 @@ public class MedicoService {
 	
 	public String getEspecialidades() throws PersistentException{
 		String out= "";
-		orm.Especialidad[] ormEspecialidads = orm.EspecialidadDAO.listEspecialidadByQuery(null, null);
+		model.Especialidad[] ormEspecialidads = model.EspecialidadDAO.listEspecialidadByQuery(null, null);
 		length = Math.min(ormEspecialidads.length, ROW_COUNT);
 		
 		String[] label = {"id", "especialidad"};
@@ -168,7 +167,7 @@ public class MedicoService {
 		String out = "";
 		
 		System.out.println("Listing Medico2...");
-		orm.Medico2[] ormMedico2s = orm.Medico2DAO.listMedico2ByQuery("especialidad = "+esp, null);
+		model.Medico2[] ormMedico2s = model.Medico2DAO.listMedico2ByQuery("especialidad = "+esp, null);
 		
 		String[] label = {"idMedico", "idPersona", "RUT", "Nombre", 
 				"Apellido", "Edad", "Fono", "Direccion", "Ciudad", "Comuna",
@@ -208,7 +207,7 @@ public class MedicoService {
 		String[] label = {"id", "Fecha", "Hora"};
 		String condicion = "medicoid = "+med+" AND fecha BETWEEN \'"+crit1+"\' AND \'"+crit2+"\'";
 		
-		orm.Horamedica2[] ormHoramedica2s = orm.Horamedica2DAO.listHoramedica2ByQuery(condicion, null);
+		model.Horamedica2[] ormHoramedica2s = model.Horamedica2DAO.listHoramedica2ByQuery(condicion, null);
 		length = Math.min(ormHoramedica2s.length, ROW_COUNT);
 		for (int i = 0; i < length; i++) {
 			String[][] o = {label,{
@@ -237,26 +236,26 @@ public class MedicoService {
 			condicionHr+=" AND id = "+idHrs[c];
 		}
 			
-		orm.Paciente2[] ormPaciente2s = orm.Paciente2DAO.listPaciente2ByQuery(condicion, null);
-		orm.Horamedica2[] ormHoramedica2s = orm.Horamedica2DAO.listHoramedica2ByQuery(condicionHr, null);
+		model.Paciente2[] ormPaciente2s = model.Paciente2DAO.listPaciente2ByQuery(condicion, null);
+		model.Horamedica2[] ormHoramedica2s = model.Horamedica2DAO.listHoramedica2ByQuery(condicionHr, null);
 		
-		PersistentTransaction t = orm.PDSTallerPersistentManager.instance().getSession().beginTransaction();
+		PersistentTransaction t = model.PDSTallerPersistentManager.instance().getSession().beginTransaction();
 		try {
 			
-			orm.Paciente_hora lormPaciente_Entidad = orm.Paciente_horaDAO.createPaciente_hora();
+			model.Paciente_hora lormPaciente_Entidad = model.Paciente_horaDAO.createPaciente_hora();
 			
 			lormPaciente_Entidad.setPaciente(ormPaciente2s[0]);
 			lormPaciente_Entidad.setHoramedica(ormHoramedica2s[0]);
 			
-			orm.Paciente_horaDAO.save(lormPaciente_Entidad);
+			model.Paciente_horaDAO.save(lormPaciente_Entidad);
 			
 			
-			orm.Reserva2 lormReserva2 = orm.Reserva2DAO.createReserva2();
+			model.Reserva2 lormReserva2 = model.Reserva2DAO.createReserva2();
 			lormReserva2.setHoramedica(ormHoramedica2s[0]);
 			lormReserva2.setPaciente(ormPaciente2s[0]);
 			lormReserva2.setPersona(ormPaciente2s[0].getPersona());
 			
-			orm.Reserva2DAO.save(lormReserva2);
+			model.Reserva2DAO.save(lormReserva2);
 			
 			t.commit();
 			
@@ -269,7 +268,7 @@ public class MedicoService {
 			cond+=" AND horamedicaid = "+idHrs[c];
 		}
 		
-		Reserva2[] ormReserva = orm.Reserva2DAO.listReserva2ByQuery("pacienteid = "+idPac+cond, null);
+		Reserva2[] ormReserva = model.Reserva2DAO.listReserva2ByQuery("pacienteid = "+idPac+cond, null);
 		
 		out = "Número(s) de Reserva(s):\n";
 		for(int c=0; c<ormReserva.length; c++){

@@ -19,18 +19,18 @@ public class Login {
 		condicion = "login = '"+login+"' AND pass = '"+pass+"'";
 		
 		
-		orm.Persona2[] ormPersona2s = orm.Persona2DAO.listPersona2ByQuery(condicion, null);
+		model.Persona2[] ormPersona2s = model.Persona2DAO.listPersona2ByQuery(condicion, null);
 		
 		if(ormPersona2s.length==1){
-			orm.Persona2 per = ormPersona2s[0];
+			model.Persona2 per = ormPersona2s[0];
 			
 			int permiso = 0;
 			
 			condicion = "Personaid = "+per.getId();
 			
-			orm.Paciente2[] ormPaciente2s = orm.Paciente2DAO.listPaciente2ByQuery(condicion, null);
-			orm.Medico2[] ormMedico2s = orm.Medico2DAO.listMedico2ByQuery(condicion, null);
-			orm.Director2[] ormDirector2s = orm.Director2DAO.listDirector2ByQuery(condicion, null);
+			model.Paciente2[] ormPaciente2s = model.Paciente2DAO.listPaciente2ByQuery(condicion, null);
+			model.Medico2[] ormMedico2s = model.Medico2DAO.listMedico2ByQuery(condicion, null);
+			model.Director2[] ormDirector2s = model.Director2DAO.listDirector2ByQuery(condicion, null);
 			
 			if(ormPaciente2s.length>0){
 				permiso =0;

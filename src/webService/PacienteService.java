@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import json.Json;
+import model.Horamedica2;
+import model.Medico2;
+import model.Reserva2;
 
 import org.orm.PersistentException;
 import org.orm.PersistentTransaction;
-
-import orm.Horamedica2;
-import orm.Medico2;
-import orm.Reserva2;
 
 public class PacienteService {
 	final int ROW_COUNT = 100;
@@ -36,7 +35,7 @@ public class PacienteService {
 		}
 		
 		
-		orm.Horamedica2[] ormHoramedica2s = orm.Horamedica2DAO.listHoramedica2ByQuery(condicion, null);
+		model.Horamedica2[] ormHoramedica2s = model.Horamedica2DAO.listHoramedica2ByQuery(condicion, null);
 		length = Math.min(ormHoramedica2s.length, ROW_COUNT);
 		for (int i = 0; i < length; i++) {
 			String[][] o = {label,{
@@ -59,28 +58,28 @@ public class PacienteService {
 				condicionHr = "id = "+idHora,
 				condicionRes = "horamedicaid = "+idHora;
 				
-		orm.Paciente2[] ormPaciente2s = orm.Paciente2DAO.listPaciente2ByQuery(condicion, null);
-		orm.Horamedica2[] ormHoramedica2s = orm.Horamedica2DAO.listHoramedica2ByQuery(condicionHr, null);
-		orm.Reserva2[] ormRes = orm.Reserva2DAO.listReserva2ByQuery(condicionRes, null);
+		model.Paciente2[] ormPaciente2s = model.Paciente2DAO.listPaciente2ByQuery(condicion, null);
+		model.Horamedica2[] ormHoramedica2s = model.Horamedica2DAO.listHoramedica2ByQuery(condicionHr, null);
+		model.Reserva2[] ormRes = model.Reserva2DAO.listReserva2ByQuery(condicionRes, null);
 		
-		PersistentTransaction t = orm.PDSTallerPersistentManager.instance().getSession().beginTransaction();
+		PersistentTransaction t = model.PDSTallerPersistentManager.instance().getSession().beginTransaction();
 		try {
 			
 			if(ormRes.length == 0){
-				orm.Paciente_hora lormPaciente_Entidad = orm.Paciente_horaDAO.createPaciente_hora();
+				model.Paciente_hora lormPaciente_Entidad = model.Paciente_horaDAO.createPaciente_hora();
 				
 				lormPaciente_Entidad.setPaciente(ormPaciente2s[0]);
 				lormPaciente_Entidad.setHoramedica(ormHoramedica2s[0]);
 				
-				orm.Paciente_horaDAO.save(lormPaciente_Entidad);
+				model.Paciente_horaDAO.save(lormPaciente_Entidad);
 				
 				
-				orm.Reserva2 lormReserva2 = orm.Reserva2DAO.createReserva2();
+				model.Reserva2 lormReserva2 = model.Reserva2DAO.createReserva2();
 				lormReserva2.setHoramedica(ormHoramedica2s[0]);
 				lormReserva2.setPaciente(ormPaciente2s[0]);
 				lormReserva2.setPersona(ormPaciente2s[0].getPersona());
 				
-				orm.Reserva2DAO.save(lormReserva2);
+				model.Reserva2DAO.save(lormReserva2);
 				
 				t.commit();
 			}else{
@@ -92,7 +91,7 @@ public class PacienteService {
 			t.rollback();
 		}
 		
-		Reserva2[] ormReserva = orm.Reserva2DAO.listReserva2ByQuery("pacienteid = "+idPac+" AND horamedicaid = "+idHora, null);
+		Reserva2[] ormReserva = model.Reserva2DAO.listReserva2ByQuery("pacienteid = "+idPac+" AND horamedicaid = "+idHora, null);
 		
 		return ""+ormReserva[0].getId();
 	}

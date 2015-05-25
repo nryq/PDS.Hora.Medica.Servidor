@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.orm.PersistentException;
 
 import webService.*;
-import ejemploCrear.CrearPaciente;
 
 public class Main {
 

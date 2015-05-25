@@ -8,7 +8,7 @@ import org.orm.*;
 public class CreatePDSTallerData {
 	public void createTestData() throws PersistentException {
 		// Insert sample data
-		PersistentSession session = orm.PDSTallerPersistentManager.instance().getSession();
+		PersistentSession session = model.PDSTallerPersistentManager.instance().getSession();
 		PersistentTransaction transaction = session.beginTransaction();
 		try {
 			session.doWork(new org.hibernate.jdbc.Work() {
@@ -36,38 +36,38 @@ public class CreatePDSTallerData {
 			e.printStackTrace();
 		}
 		
-		PersistentTransaction t = orm.PDSTallerPersistentManager.instance().getSession().beginTransaction();
+		PersistentTransaction t = model.PDSTallerPersistentManager.instance().getSession().beginTransaction();
 		try {
-			orm.Persona2 lormPersona2 = orm.Persona2DAO.createPersona2();
+			model.Persona2 lormPersona2 = model.Persona2DAO.createPersona2();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : reserva2, medico2, director2, paciente2, apellido, nombre, rut
-			orm.Persona2DAO.save(lormPersona2);
-			orm.Paciente2 lormPaciente2 = orm.Paciente2DAO.createPaciente2();
+			model.Persona2DAO.save(lormPersona2);
+			model.Paciente2 lormPaciente2 = model.Paciente2DAO.createPaciente2();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : reserva2, paciente_hora, persona
-			orm.Paciente2DAO.save(lormPaciente2);
-			orm.Horamedica2 lormHoramedica2 = orm.Horamedica2DAO.createHoramedica2();
+			model.Paciente2DAO.save(lormPaciente2);
+			model.Horamedica2 lormHoramedica2 = model.Horamedica2DAO.createHoramedica2();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : reserva2, paciente_hora, medico, box
-			orm.Horamedica2DAO.save(lormHoramedica2);
-			orm.Paciente_hora lormPaciente_hora = orm.Paciente_horaDAO.createPaciente_hora();
+			model.Horamedica2DAO.save(lormHoramedica2);
+			model.Paciente_hora lormPaciente_hora = model.Paciente_horaDAO.createPaciente_hora();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : horamedica, paciente
-			orm.Paciente_horaDAO.save(lormPaciente_hora);
-			orm.Director2 lormDirector2 = orm.Director2DAO.createDirector2();
+			model.Paciente_horaDAO.save(lormPaciente_hora);
+			model.Director2 lormDirector2 = model.Director2DAO.createDirector2();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : reporte2, persona
-			orm.Director2DAO.save(lormDirector2);
-			orm.Medico2 lormMedico2 = orm.Medico2DAO.createMedico2();
+			model.Director2DAO.save(lormDirector2);
+			model.Medico2 lormMedico2 = model.Medico2DAO.createMedico2();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : horamedica2, especialidad, persona
-			orm.Medico2DAO.save(lormMedico2);
-			orm.Box2 lormBox2 = orm.Box2DAO.createBox2();
+			model.Medico2DAO.save(lormMedico2);
+			model.Box2 lormBox2 = model.Box2DAO.createBox2();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : horamedica2, nombre
-			orm.Box2DAO.save(lormBox2);
-			orm.Reporte2 lormReporte2 = orm.Reporte2DAO.createReporte2();
+			model.Box2DAO.save(lormBox2);
+			model.Reporte2 lormReporte2 = model.Reporte2DAO.createReporte2();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : director
-			orm.Reporte2DAO.save(lormReporte2);
-			orm.Reserva2 lormReserva2 = orm.Reserva2DAO.createReserva2();
+			model.Reporte2DAO.save(lormReporte2);
+			model.Reserva2 lormReserva2 = model.Reserva2DAO.createReserva2();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : paciente, horamedica, persona
-			orm.Reserva2DAO.save(lormReserva2);
-			orm.Especialidad lormEspecialidad = orm.EspecialidadDAO.createEspecialidad();
+			model.Reserva2DAO.save(lormReserva2);
+			model.Especialidad lormEspecialidad = model.EspecialidadDAO.createEspecialidad();
 			// TODO Initialize the properties of the persistent object here, the following properties must be initialized before saving : medico2, especialidad
-			orm.EspecialidadDAO.save(lormEspecialidad);
+			model.EspecialidadDAO.save(lormEspecialidad);
 			t.commit();
 		}
 		catch (Exception e) {
@@ -83,7 +83,7 @@ public class CreatePDSTallerData {
 				createPDSTallerData.createTestData();
 			}
 			finally {
-				orm.PDSTallerPersistentManager.instance().disposePersistentManager();
+				model.PDSTallerPersistentManager.instance().disposePersistentManager();
 			}
 		}
 		catch (Exception e) {

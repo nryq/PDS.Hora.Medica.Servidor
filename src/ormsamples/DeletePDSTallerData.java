@@ -7,38 +7,38 @@ package ormsamples;
 import org.orm.*;
 public class DeletePDSTallerData {
 	public void deleteTestData() throws PersistentException {
-		PersistentTransaction t = orm.PDSTallerPersistentManager.instance().getSession().beginTransaction();
+		PersistentTransaction t = model.PDSTallerPersistentManager.instance().getSession().beginTransaction();
 		try {
-			orm.Persona2 lormPersona2 = orm.Persona2DAO.loadPersona2ByQuery(null, null);
+			model.Persona2 lormPersona2 = model.Persona2DAO.loadPersona2ByQuery(null, null);
 			// Delete the persistent object
-			orm.Persona2DAO.delete(lormPersona2);
-			orm.Paciente2 lormPaciente2 = orm.Paciente2DAO.loadPaciente2ByQuery(null, null);
+			model.Persona2DAO.delete(lormPersona2);
+			model.Paciente2 lormPaciente2 = model.Paciente2DAO.loadPaciente2ByQuery(null, null);
 			// Delete the persistent object
-			orm.Paciente2DAO.delete(lormPaciente2);
-			orm.Horamedica2 lormHoramedica2 = orm.Horamedica2DAO.loadHoramedica2ByQuery(null, null);
+			model.Paciente2DAO.delete(lormPaciente2);
+			model.Horamedica2 lormHoramedica2 = model.Horamedica2DAO.loadHoramedica2ByQuery(null, null);
 			// Delete the persistent object
-			orm.Horamedica2DAO.delete(lormHoramedica2);
-			orm.Paciente_hora lormPaciente_hora = orm.Paciente_horaDAO.loadPaciente_horaByQuery(null, null);
+			model.Horamedica2DAO.delete(lormHoramedica2);
+			model.Paciente_hora lormPaciente_hora = model.Paciente_horaDAO.loadPaciente_horaByQuery(null, null);
 			// Delete the persistent object
-			orm.Paciente_horaDAO.delete(lormPaciente_hora);
-			orm.Director2 lormDirector2 = orm.Director2DAO.loadDirector2ByQuery(null, null);
+			model.Paciente_horaDAO.delete(lormPaciente_hora);
+			model.Director2 lormDirector2 = model.Director2DAO.loadDirector2ByQuery(null, null);
 			// Delete the persistent object
-			orm.Director2DAO.delete(lormDirector2);
-			orm.Medico2 lormMedico2 = orm.Medico2DAO.loadMedico2ByQuery(null, null);
+			model.Director2DAO.delete(lormDirector2);
+			model.Medico2 lormMedico2 = model.Medico2DAO.loadMedico2ByQuery(null, null);
 			// Delete the persistent object
-			orm.Medico2DAO.delete(lormMedico2);
-			orm.Box2 lormBox2 = orm.Box2DAO.loadBox2ByQuery(null, null);
+			model.Medico2DAO.delete(lormMedico2);
+			model.Box2 lormBox2 = model.Box2DAO.loadBox2ByQuery(null, null);
 			// Delete the persistent object
-			orm.Box2DAO.delete(lormBox2);
-			orm.Reporte2 lormReporte2 = orm.Reporte2DAO.loadReporte2ByQuery(null, null);
+			model.Box2DAO.delete(lormBox2);
+			model.Reporte2 lormReporte2 = model.Reporte2DAO.loadReporte2ByQuery(null, null);
 			// Delete the persistent object
-			orm.Reporte2DAO.delete(lormReporte2);
-			orm.Reserva2 lormReserva2 = orm.Reserva2DAO.loadReserva2ByQuery(null, null);
+			model.Reporte2DAO.delete(lormReporte2);
+			model.Reserva2 lormReserva2 = model.Reserva2DAO.loadReserva2ByQuery(null, null);
 			// Delete the persistent object
-			orm.Reserva2DAO.delete(lormReserva2);
-			orm.Especialidad lormEspecialidad = orm.EspecialidadDAO.loadEspecialidadByQuery(null, null);
+			model.Reserva2DAO.delete(lormReserva2);
+			model.Especialidad lormEspecialidad = model.EspecialidadDAO.loadEspecialidadByQuery(null, null);
 			// Delete the persistent object
-			orm.EspecialidadDAO.delete(lormEspecialidad);
+			model.EspecialidadDAO.delete(lormEspecialidad);
 			t.commit();
 		}
 		catch (Exception e) {
@@ -54,7 +54,7 @@ public class DeletePDSTallerData {
 				deletePDSTallerData.deleteTestData();
 			}
 			finally {
-				orm.PDSTallerPersistentManager.instance().disposePersistentManager();
+				model.PDSTallerPersistentManager.instance().disposePersistentManager();
 			}
 		}
 		catch (Exception e) {

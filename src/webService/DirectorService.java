@@ -35,7 +35,7 @@ public class DirectorService {
 		json.Json j = new json.Json();
 
 		System.out.println("Listing Box2...");
-		orm.Box2[] ormBox2s = orm.Box2DAO.listBox2ByQuery(null, null);
+		model.Box2[] ormBox2s = model.Box2DAO.listBox2ByQuery(null, null);
 		int length = Math.min(ormBox2s.length, ROW_COUNT);
 
 		for (int i = 0; i < length; i++) {
@@ -72,7 +72,7 @@ public class DirectorService {
 //			condicion = null;
 //		}
 
-		orm.Horamedica2[] ormHoramedica2s = orm.Horamedica2DAO
+		model.Horamedica2[] ormHoramedica2s = model.Horamedica2DAO
 				.listHoramedica2ByQuery(condicion, null);
 
 		out = cal.calcularOcupacion(ormHoramedica2s.length,
@@ -101,7 +101,7 @@ public class DirectorService {
 			condicion = null;
 		}
 
-		orm.Horamedica2[] ormHoramedica2s = orm.Horamedica2DAO
+		model.Horamedica2[] ormHoramedica2s = model.Horamedica2DAO
 				.listHoramedica2ByQuery(condicion, null);
 
 		out = cal.calcularOcupacion(ormHoramedica2s.length,
@@ -117,9 +117,9 @@ public class DirectorService {
 
 		String condicionHrMed = "fecha BETWEEN \'" + fecha1 + "\' AND \'"
 				+ fecha2 + "\'";
-		orm.Horamedica2[] ormHoramedica2s = orm.Horamedica2DAO
+		model.Horamedica2[] ormHoramedica2s = model.Horamedica2DAO
 				.listHoramedica2ByQuery(condicionHrMed, null);
-		orm.Medico2[] meds = orm.Medico2DAO.listMedico2ByQuery(null, null);
+		model.Medico2[] meds = model.Medico2DAO.listMedico2ByQuery(null, null);
 
 		int[] hrsMedicos = new int[meds.length];
 
@@ -129,7 +129,7 @@ public class DirectorService {
 		}
 		
 		int[] aux = burbuja(hrsMedicos.clone());
-		orm.Medico2[] medOrd = getMedicosOrdenados(hrsMedicos.clone(), meds);
+		model.Medico2[] medOrd = getMedicosOrdenados(hrsMedicos.clone(), meds);
 
 		for (int c = 0; c < medOrd.length; c++) {
 			String[][] o = {
@@ -153,10 +153,10 @@ public class DirectorService {
 		String condicionHrMed = "fecha BETWEEN \'" + fecha1 + "\' AND \'"
 				+ fecha2 + "\'";
 		String condicionReserva = "";
-		orm.Reserva2[] aux2 = null;
+		model.Reserva2[] aux2 = null;
 		
-		orm.Horamedica2[] ormHora = orm.Horamedica2DAO.listHoramedica2ByQuery(condicionHrMed, null);
-		orm.Reserva2[] ormReserva = orm.Reserva2DAO.listReserva2ByQuery(condicionHrMed, null);
+		model.Horamedica2[] ormHora = model.Horamedica2DAO.listHoramedica2ByQuery(condicionHrMed, null);
+		model.Reserva2[] ormReserva = model.Reserva2DAO.listReserva2ByQuery(condicionHrMed, null);
 		
 		for(int c = 0; c<ormHora.length; c++){
 			for(int x=0; x<ormReserva.length; x++){
@@ -167,7 +167,7 @@ public class DirectorService {
 			}
 		}
 		
-		orm.Paciente2[] pacientes = orm.Paciente2DAO.listPaciente2ByQuery(null, null);
+		model.Paciente2[] pacientes = model.Paciente2DAO.listPaciente2ByQuery(null, null);
 
 		int[] reservaPaciente = new int[pacientes.length];
 
@@ -176,7 +176,7 @@ public class DirectorService {
 		}
 		
 		int[] aux = burbuja(reservaPaciente.clone());
-		orm.Paciente2[] pacOrd = getPacientesOrdenados(reservaPaciente.clone(), pacientes);
+		model.Paciente2[] pacOrd = getPacientesOrdenados(reservaPaciente.clone(), pacientes);
 
 		// for (int c = 0; c < meds.length; c++) {
 		// System.out.println("id: " + medOrd[c].getId() + " medico: "
@@ -200,7 +200,7 @@ public class DirectorService {
 		return out;
 	}
 
-	private int getHorasAtendidas(orm.Horamedica2[] hrM, int id){
+	private int getHorasAtendidas(model.Horamedica2[] hrM, int id){
 		int out = 0;
 		for(int c=0;c<hrM.length; c++){
 			if(hrM[c].getMedico().getId()==id){
@@ -211,7 +211,7 @@ public class DirectorService {
 		return out;
 	}
 	
-	private int getHorasAtendidas(orm.Reserva2[] hrM, int id){
+	private int getHorasAtendidas(model.Reserva2[] hrM, int id){
 		int out = 0;
 		for(int c=0;c<hrM.length; c++){
 			if(hrM[c].getPaciente().getId()==id){
@@ -222,8 +222,8 @@ public class DirectorService {
 		return out;
 	}
 	
-	private orm.Medico2[] getMedicosOrdenados(int[] hrM, orm.Medico2[] meds){
-		orm.Medico2[] out = new orm.Medico2[meds.length];
+	private model.Medico2[] getMedicosOrdenados(int[] hrM, model.Medico2[] meds){
+		model.Medico2[] out = new model.Medico2[meds.length];
 		int[] aux = hrM.clone();
 		aux = burbuja(aux);
 		
@@ -240,8 +240,8 @@ public class DirectorService {
 		return out;
 	}
 	
-	private orm.Paciente2[] getPacientesOrdenados(int[] hrM, orm.Paciente2[] pc){
-		orm.Paciente2[] out = new orm.Paciente2[pc.length];
+	private model.Paciente2[] getPacientesOrdenados(int[] hrM, model.Paciente2[] pc){
+		model.Paciente2[] out = new model.Paciente2[pc.length];
 		int[] aux = hrM.clone();
 		aux = burbuja(aux);
 		
