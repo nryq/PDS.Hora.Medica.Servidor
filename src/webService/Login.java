@@ -11,13 +11,12 @@ import org.orm.PersistentException;
  */
 public class Login {
 	private static final int ROW_COUNT = 100;
-	
+
 	public String login(String login, String pass) throws PersistentException{
 		String out = "";
 		String condicion;
 		json.Json j = new json.Json();
 		condicion = "login = '"+login+"' AND pass = '"+pass+"'";
-		
 		
 		model.Persona2[] ormPersona2s = model.Persona2DAO.listPersona2ByQuery(condicion, null);
 		
@@ -50,5 +49,4 @@ public class Login {
 		
 		return out;
 	}
-	
 }
